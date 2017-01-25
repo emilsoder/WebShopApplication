@@ -1,0 +1,97 @@
+﻿@model WebShopApp.Models.ViewModels.EmailFormViewModel
+
+@{
+    ViewData["Title"] = "Kontakt";
+}
+<h2>Kontakt</h2>
+<hr />
+<style>
+    .panel-b {
+        padding: 15px 15px;
+        height: 100%;
+        min-height:350px
+    }
+
+    iframe {
+        width: 100%;
+    }
+</style>
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="text-center">Skicka ett meddelande till oss</h3>
+            </div>
+            <div class="panel-b">
+                <form asp-action="Index" method="post" role="form">
+                    <div class="form-horizontal">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Ditt namn</label>
+                            <div class="col-md-9">
+                                <input asp-for="FromName" class="form-control" />
+                                <span asp-validation-for="FromName" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Din email</label>
+                            <div class="col-md-9">
+                                <input asp-for="FromEmail" class="form-control" />
+                                <span asp-validation-for="FromEmail" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Ämne</label>
+                            <div class="col-md-9">
+                                <input asp-for="Subject" class="form-control" />
+                                <span asp-validation-for="Subject" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Meddelande</label>
+                            <div class="col-md-9">
+                                <textarea asp-for="Message" class="form-control"> </textarea>
+                                <span asp-validation-for="Message" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="submit" class="btn btn-default" value="Skicka" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="text-center">Karta</h3>
+            </div>
+            <div class="panel-b">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1041.213557098784!2d14.503842783762172!3d58.53784109767362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465bbb9865836fc9%3A0x56b34e7102a75d53!2sStorgatan+47%2C+546+32+Karlsborg%2C+Sverige!5e0!3m2!1ssv!2sus!4v1485255886882"
+                        height="300" frameborder="0" style="border:0"></iframe>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (ViewData["IsMessageSent"] != null)
+{
+    @Html.Partial("MessageSentPartial")
+}
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

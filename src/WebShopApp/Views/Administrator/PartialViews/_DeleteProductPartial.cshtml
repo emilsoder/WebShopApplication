@@ -1,0 +1,34 @@
+﻿@model WebShopApp.Models.AdministratorViewModels.AdministratorViewModel
+@{
+    int id = int.Parse(ViewData["productID"].ToString());
+    Products product = Model.AllProducts.SingleOrDefault(x => x.ProductID == id);
+}
+<script>
+    $(document).ready(function () {
+        $("#DeleteProductModal").modal();
+    });
+</script>
+
+<div class="modal fade" id="DeleteProductModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header removeItemModal" style="padding:35px 50px;">
+                <a asp-action="Index" asp-route-id="" asp-route-showModal=""><span class="pull-right glyphicon glyphicon-remove"> </span></a>
+                <div class="removeItemModal">Ta bort produkt</div>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="text-danger">Är du säker på att ta bort produkten?</h4>
+                <h5>Produkt: @product.ProductName</h5>
+            </div>
+
+            <div class="modal-footer">
+                <form asp-action="DeleteSelectedProduct" asp-route-productID="@product.ProductID" method="post" role="form">
+                    <input type="submit" value="Ta bort" class="btn btn-danger" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

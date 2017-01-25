@@ -1,0 +1,62 @@
+﻿@using WebShopApp.Services
+@inject ShoppingCartDetailsService shoppingCartDetails
+
+<div class="panel panel-default shoppingCartPanel">
+    <div class="container" style="padding-right: 0px">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="btn btn-primary pull-right goToCart" id="NOTLOGGEDIN">Beställ</div>
+        }
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-primary pull-right goToCart">Beställ</a>
+        }
+        <div class="dropdown pull-right cartItemsDropDown">
+            @if (User.Identity.IsAuthenticated)
+            {
+                decimal? totalPrice = shoppingCartDetails.currentShoppingCart(User.Identity.Name).Sum(p => p.UnitPrice);
+                totalPrice = (User.IsInRole("PremiumUser")) ? (80m / 100m) * totalPrice : totalPrice;
+
+                <div class="dropdown-toggle btn btn-default" data-toggle="dropdown" href="#">
+                    Kundvagn(@shoppingCartDetails.GetCount(User.Identity.Name))
+                    <span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu" style="width:auto; padding-bottom:0">
+                    <content>
+                        <table class="table">
+                            <tbody>
+                                @foreach (var item in shoppingCartDetails.currentShoppingCart(User.Identity.Name))
+                                {
+                                    <tr>
+                                        <td class="largeTR">
+                                            @item.ProductName
+                                        </td>
+                                        <td class="smallTR">
+                                            @item.UnitPrice kr
+                                        </td>
+                                        <td class="smallTR">
+                                            <form asp-action="Delete" asp-controller="Products" asp-route-id="@item.ID" style="margin-left:15px">
+                                                <button class="close" type="submit" style="cursor:pointer">&times;</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <table class="table w3-teal footerTable">
+                            <tr>
+                                <td></td>
+                                <td><b>Summa:</b></td>
+                                <td><b>@totalPrice kr</b></td>
+                            </tr>
+                        </table>
+                    </content>
+                </ul>
+            }
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="dropdown-toggle btn btn-default" data-toggle="dropdown" href="#">Kundvagn(0)<span class="caret"></span></a>
+            }
+        </div>
+    </div>
+</div>

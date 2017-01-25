@@ -1,0 +1,80 @@
+﻿@model WebShopApp.Models.AdministratorViewModels.AdministratorViewModel
+@{
+    string[] categories = { "Pizza", "Kebab", "Sallad" };
+}
+<script>
+    $(document).ready(function () {
+        $("#CreateProductModal").modal();
+    });
+</script>
+
+<div class="modal fade" id="CreateProductModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <a asp-action="Index" asp-route-id="" asp-route-showModal=""><span class="pull-right glyphicon glyphicon-remove"> </span></a>
+                <div class="modalh4">Lägg till produkt</div>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+
+                <form asp-action="CreateProduct" id="EditCreateForm" method="post" role="form">
+                    <div class="form-horizontal">
+                        <h4>Lägg till produkt</h4>
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @*<input asp-for="OneProduct.ProductID" type="hidden" value="OneProduct.ProductID"/>
+                            <input asp-for="OneProduct.Ingredients" type="hidden" />*@
+
+                        <div class="form-group">
+                            <label asp-for="OneProductVM.CategoryName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.OneProductVM.CategoryName, new SelectList(categories), new { @class = "form-control" })
+                                <span asp-validation-for="OneProduct.CategoryNumber" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateProduct.Description" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="CreateProduct.Description" class="form-control" style="height:200px"  minlenght="1" required />
+                                <span asp-validation-for="CreateProduct.Description" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateProduct.ProductName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="CreateProduct.ProductName" class="form-control" minlenght="1" required />
+                                <span asp-validation-for="CreateProduct.ProductName" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateProduct.UnitPrice" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="CreateProduct.UnitPrice" class="form-control" minlenght="1" type="number" required />
+                                <span asp-validation-for="CreateProduct.UnitPrice" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-8">
+                                <input type="submit" value="Lägg till" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    $("#EditCreateForm").validate();
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-danger pull-left" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Avbryt
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

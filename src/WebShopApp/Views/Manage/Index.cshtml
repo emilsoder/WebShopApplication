@@ -1,0 +1,90 @@
+﻿@model WebShopApp.Models.ViewModels.ManageViewModels.ManageViewModel
+@inject WebShopApp.Repositories.ICustomerRepository _customerRepository
+
+@{
+    ViewData["Title"] = "Mina sidor";
+}
+
+<h2 class="manageHeader">Mina sidor</h2>
+@if (User.IsInRole("Administrator"))
+{
+    <a asp-action="Index" asp-controller="Administrator" class="h4 btn btn-primary btn-lg btn-block w3-hover-shadow">Gå till portalen för administratörer</a>
+}
+<p class="text-success">@ViewData["StatusMessage"]</p>
+
+<div class="modal-content">
+    <div class="modal-header emil-blue" style="padding:15px 50px;">
+        <div class="modalh4">
+            <h2>Välkommen, @Model.customer.FirstName!</h2>
+            <h5>Här kan du se och ändra dina kontouppgifter</h5>
+        </div>
+    </div>
+    <div class="modal-body" style="padding:15px 50px;">
+        <form asp-controller="Manage" asp-action="UpdateCustomerDetails" method="post" class="form-horizontal">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.customer.CustomerID" />
+            <div class="form-group">
+                <label class="col-md-2 control-label">Lösenord</label>
+                <div class="col-md-10">
+                    <a id="changePasswordButton" class="btn btn-primary">Ändra</a>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label class="col-md-2 control-label">Email</label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.customer.Email" class="form-control" />
+                    <span asp-validation-for="@Model.customer.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Förnamn</label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.customer.FirstName" class="form-control" />
+                    <span asp-validation-for="@Model.customer.FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Efternamn</label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.customer.LastName" class="form-control" />
+                    <span asp-validation-for="@Model.customer.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Address</label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.customer.Address" class="form-control" />
+                    <span asp-validation-for="@Model.customer.Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Telefonnummer</label>
+                <div class="col-md-10">
+                    <input asp-for="@Model.customer.Phone" class="form-control" />
+                    <span asp-validation-for="@Model.customer.Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-success">Spara ändringar</button>
+                    <a asp-action="Index" class="btn btn-primary">Återställ</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@Html.Partial("_ChangePasswordPartial")
+
+<script>
+    $(document).ready(function () {
+        $('#changePasswordButton').click(function () {
+            $("#changePasswordModal").modal();
+        })
+    });
+</script>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

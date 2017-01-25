@@ -1,0 +1,214 @@
+﻿@model IEnumerable<WebShopApp.Models.Products>
+
+@{
+    ViewData["Title"] = "Produkter";
+}
+
+<ul class="nav nav-tabs">
+    <li class="" id="pizza"><a data-toggle="tab" href="#pizzaTab" onclick="pizzaClick()">Pizzor</a></li>
+    <li class="" id="kebab"><a data-toggle="tab" href="#kebabTab" onclick="kebabClick()">Kebab</a></li>
+    <li class="" id="sallad"><a data-toggle="tab" href="#salladTab" onclick="salladClick()">Sallader</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="pizzaTab" class="tab-pane fade in active">
+        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+            <div class="row">
+                @foreach (var item in Model.Where(x => x.CategoryNumber == 1))
+                {
+                    string price = "";
+                    if (item.UnitPrice.ToString().Contains(","))
+                    {
+                        price = item.UnitPrice.ToString().Remove(item.UnitPrice.ToString().IndexOf(',')) + " kr";
+                    }
+                    else
+                    {
+                        price = item.UnitPrice.ToString() + " kr";
+                    }
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel w3-hover-shadow">
+                            <div class="panel-heading panel-title">
+                                <b> @item.ProductName</b>
+                            </div>
+                            <div class="panel-body">
+                                <span class="bodyText">@item.Description</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid">
+                                <img class="img-responsive img-thumbnail center-block productImage" src="~/images/strutspizza.jpg" />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="panel-footer">
+                                <div class="label label-success">
+                                    @price
+                                </div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-action="AddProduct" asp-route-productID="@item.ProductID" asp-route-selectedCategory="pizza" class="pull-right">
+                                        <input type="submit" value="Lägg till i kundvagn" class="btn btn-primary btn-sm pull-right w3-hover-shadow" />
+                                    </form>
+                                }
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <div class="btn btn-primary btn-sm pull-right" id="NOTLOGGEDIN" onclick="openLoginModal.call()">Lägg till i kundvagn</div>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="kebabTab" class="tab-pane fade">
+        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+            <div class="row">
+                @foreach (var item in Model.Where(x => x.CategoryNumber == 2))
+                {
+                    string price = "";
+                    if (item.UnitPrice.ToString().Contains(","))
+                    {
+                        price = item.UnitPrice.ToString().Remove(item.UnitPrice.ToString().IndexOf(',')) + " kr";
+                    }
+                    else
+                    {
+                        price = item.UnitPrice.ToString() + " kr";
+                    }
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel w3-hover-shadow">
+                            <div class="panel-heading panel-title">
+                                <b> @item.ProductName</b>
+                            </div>
+                            <div class="panel-body">
+                                <span class="bodyText">@item.Description</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid">
+                                <img class="img-responsive img-thumbnail center-block productImage" src="~/images/kebab.jpg" />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="panel-footer">
+                                <div class="label label-success">
+                                    @price
+                                </div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-action="AddProduct" asp-route-productID="@item.ProductID" asp-route-selectedCategory="kebab" class="pull-right">
+                                        <input type="submit" value="Lägg till i kundvagn" class="btn btn-primary btn-sm pull-right w3-hover-shadow"/>
+                                    </form>
+                                }
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <div class="btn btn-primary btn-sm pull-right" id="NOTLOGGEDIN" onclick="openLoginModal.call()">Lägg till i kundvagn</div>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="salladTab" class="tab-pane fade">
+        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+            <div class="row">
+                @foreach (var item in Model.Where(x => x.CategoryNumber == 3))
+                {
+                    string price = "";
+                    if (item.UnitPrice.ToString().Contains(","))
+                    {
+                        price = item.UnitPrice.ToString().Remove(item.UnitPrice.ToString().IndexOf(',')) + " kr";
+                    }
+                    else
+                    {
+                        price = item.UnitPrice.ToString() + " kr";
+                    }
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel w3-hover-shadow">
+                            <div class="panel-heading panel-title">
+                                <b> @item.ProductName</b>
+                            </div>
+                            <div class="panel-body">
+                                <span class="bodyText">@item.Description</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid">
+                                <img class="img-responsive img-thumbnail center-block productImage" src="~/images/sallad.jpg" />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="panel-footer">
+                                <div class="label label-success">
+                                    @price
+                                </div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-action="AddProduct" asp-route-productID="@item.ProductID" asp-route-selectedCategory="sallad" class="pull-right">
+                                        <input type="submit" value="Lägg till i kundvagn" class="btn btn-primary btn-sm pull-right w3-hover-shadow" />
+                                    </form>
+                                }
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <div class="btn btn-primary btn-sm pull-right" id="NOTLOGGEDIN" onclick="openLoginModal.call()">Lägg till i kundvagn</div>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        function pizzaClick() {
+            $('#kebab').removeClass("active")
+            $('#pizza').removeClass("active")
+            $('#sallad').removeClass("active")
+            $('#pizza').addClass("active");
+        }
+        function salladClick() {
+            $('#kebab').removeClass("active")
+            $('#pizza').removeClass("active")
+            $('#sallad').removeClass("active")
+            $('#sallad').addClass("active");
+        }
+        function kebabClick() {
+            $('#kebab').removeClass("active")
+            $('#pizza').removeClass("active")
+            $('#sallad').removeClass("active")
+            $('#kebab').addClass("active");
+        }
+    });
+</script>
+
+@if (ViewData["selectedCategory"].ToString() == "kebab")
+{
+    <script>
+        $(document).ready(function () {
+            $('.nav-tabs li:eq(1) a').tab('show')
+        });
+    </script>
+}
+@if (ViewData["selectedCategory"].ToString() == "pizza")
+{
+    <script>
+        $(document).ready(function () {
+            $('.nav-tabs li:eq(0) a').tab('show')
+        });
+    </script>
+}
+@if (ViewData["selectedCategory"].ToString() == "sallad")
+{
+    <script>
+        $(document).ready(function () {
+            $('.nav-tabs li:eq(2) a').tab('show')
+        });
+    </script>
+}

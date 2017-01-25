@@ -1,0 +1,171 @@
+﻿@model WebShopApp.Models.AdministratorViewModels.AdministratorViewModel
+@using WebShopApp.Repositories
+@using WebShopApp.Models
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <h2 style="margin-left: 30px;margin-top: -50px;">
+        Administratör
+    </h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8">
+            <h3 class="pull-left" style="text-align:start">Produkter</h3>
+        </div>
+        <div class="col-xs-4">
+            <a asp-action="Index" asp-controller="Administrator" asp-route-showModal="CreateProduct" class="btn btn-success btn-sm pull-right" style="margin: 10px 0;">Ny produkt</a>
+        </div>
+    </div>
+    <div class="list-group">
+        <div class="table-responsive list-group-item">
+            <table class="table-responsive table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Produkt</th>
+                        <th>Beskrivning</th>
+                        <th>Kategori</th>
+                        <th>Enhetspris</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AllProducts)
+                    {
+                        string categoryName = (item.CategoryNumber == 1) ? "Pizza" : (item.CategoryNumber == 2) ? "Kebab" : (item.CategoryNumber == 3) ? "Sallad" : "Inläsningsfel";
+
+                        <tr class="table-bordered">
+                            <td>@item.ProductID</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Description</td>
+                            <td>@categoryName</td>
+                            <td>@item.UnitPrice</td>
+                            <td>
+                                <a asp-action="Index" asp-controller="Administrator" asp-route-id="@item.ProductID" asp-route-showModal="product" class="btn btn-primary btn-sm" style="width:100%">Ändra</a>
+                            </td>
+                            <td>
+                                <a asp-action="Index" asp-controller="Administrator" asp-route-id="@item.ProductID" asp-route-showModal="DeleteProduct" class="btn btn-danger btn-sm" style="width:100%">Ta bort</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h3 class="pull-left" style="margin-left:25px">Kunder</h3>
+    </div>
+    <div class="list-group">
+        <div class="table-responsive list-group-item">
+            <table class="table-responsive table-striped table-condensed" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Namn</th>
+                        <th>Telefon</th>
+                        <th>Email</th>
+                        <th>Användartyp</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AllCustomers)
+                    {
+                        <tr class="table-bordered">
+                            <td>@item.CustomerID</td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>@item.Phone</td>
+                            <td>@item.Email</td>
+                            <td>@item.Role</td>
+                            <td>
+                                <a asp-action="Index" asp-controller="Administrator" asp-route-id="@item.CustomerID" asp-route-showModal="customer" class="btn btn-primary btn-sm" style="width:100%">Ändra</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h3 class="pull-left" style="margin-left:25px">Beställningar</h3>
+    </div>
+    <div class="list-group">
+        <div class="table-responsive list-group-item">
+            <table class="table-responsive table-striped table-condensed table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+
+                        <th>Kund</th>
+
+                        <th>Leverans</th>
+                        <th>Datum</th>
+
+                        <th>Antal</th>
+                        <th>Rabatt</th>
+
+                        <th>Netto</th>
+                        <th>Summa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.orders)
+                    {
+                        decimal? discount = ((item.Discount != null) ? item.Discount : 0);
+                        string disc = (discount.ToString().Contains(",")) ? discount.ToString().Remove(discount.ToString().IndexOf(',')) : discount.ToString();
+
+                        <tr class="table-bordered">
+                            <td>@item.OrderID</td>
+                            <td>@item.Customer.FirstName  @item.Customer.LastName.Remove(item.Customer.LastName.IndexOf(' ') + +2)</td>
+                            <td>@item.Delivery</td>
+                            <td>@item.OrderDate</td>
+                            <td>@item.ProductsQty st</td>
+                            <td>@disc %</td>
+                            <td>@item.NetPrice kr</td>
+                            <td>@item.TotalPrice kr</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@if (ViewBag.showModal != null)
+{
+    @if (ViewBag.showModal.ToString() == "product")
+    {
+        @Html.Partial("../Administrator/PartialViews/_EditProductPartial")
+    }
+
+    @if (ViewBag.showModal.ToString() == "customer")
+    {
+        @Html.Partial("../Administrator/PartialViews/_EditCustomerPartial")
+    }
+
+    // Remove confirmation modals
+
+    @if (ViewBag.showModal.ToString() == "DeleteProduct")
+    {
+        @Html.Partial("../Administrator/PartialViews/_DeleteProductPartial")
+    }
+
+    // Create product
+
+    @if (ViewBag.showModal.ToString() == "CreateProduct")
+    {
+        @Html.Partial("../Administrator/PartialViews/_CreateProductPartial")
+    }
+}

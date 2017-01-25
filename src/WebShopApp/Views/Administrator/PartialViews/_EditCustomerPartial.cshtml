@@ -1,0 +1,93 @@
+﻿@model WebShopApp.Models.AdministratorViewModels.AdministratorViewModel
+@{
+    string[] roles = new string[] { "RegularUser", "PremiumUser", "Administrator" };
+}
+
+<script>
+    $(document).ready(function () {
+        $("#EditCustomerModal").modal();
+    });
+</script>
+
+<div class="modal fade" id="EditCustomerModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <a asp-action="Index" asp-route-id="" asp-route-showModal=""><span class="pull-right glyphicon glyphicon-remove"> </span></a>
+                <div class="modalh4">
+                    <span class="glyphicon glyphicon-shopping-cart glyphicon-lock">
+                    </span> Ändra kunduppgifter
+                </div>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+                @{
+                    int id = int.Parse(ViewData["customerID"].ToString());
+                    Customers customer = Model.AllCustomers.SingleOrDefault(x => x.CustomerID == id);
+                }
+                <form asp-action="EditSelectedCustomer" method="post" role="form">
+                    <div class="form-horizontal">
+                        <h4>@customer.Email</h4>
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="OneCustomer.CustomerID" type="hidden" value="@customer.CustomerID" />
+                        <input asp-for="OneCustomer.Email" type="hidden" value="@customer.Email" />
+
+                        <div class="form-group">
+                            <label asp-for="OneCustomer.Address" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneCustomer.Address" class="form-control" value="@customer.Address" minlenght="1" required />
+                                <span asp-validation-for="OneCustomer.Address" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="OneCustomer.FirstName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneCustomer.FirstName" class="form-control" value="@customer.FirstName" minlenght="1" required />
+                                <span asp-validation-for="OneCustomer.FirstName" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="OneCustomer.LastName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneCustomer.LastName" class="form-control" value="@customer.LastName" minlenght="1" required />
+                                <span asp-validation-for="OneCustomer.LastName" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="OneCustomer.Phone" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneCustomer.Phone" class="form-control" value="@customer.Phone" minlenght="1" required />
+                                <span asp-validation-for="OneCustomer.Phone" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="OneCustomer.Role" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.OneCustomer.Role, new SelectList(roles), new { @class = "form-control" })
+                                <span asp-validation-for="OneCustomer.Role" class="text-danger" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Spara" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    $("#EditCreateForm").validate();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

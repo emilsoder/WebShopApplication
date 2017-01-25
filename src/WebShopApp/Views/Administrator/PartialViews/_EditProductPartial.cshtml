@@ -1,0 +1,83 @@
+﻿@model WebShopApp.Models.AdministratorViewModels.AdministratorViewModel
+@{
+    string[] categories = { "Pizza", "Kebab", "Sallad" };
+}
+<script>
+    $(document).ready(function () {
+        $("#EditProductModal").modal();
+    });
+</script>
+
+<div class="modal fade" id="EditProductModal" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <a asp-action="Index" asp-route-id="" asp-route-showModal="">
+                    <span class="pull-right glyphicon glyphicon-remove"></span>
+                </a>
+                <div class="modalh4">Redigera produkt</div>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+                @{
+                    int id = int.Parse(ViewData["productID"].ToString());
+                    Products product = Model.AllProducts.SingleOrDefault(x => x.ProductID == id);
+                }
+                <form asp-action="EditSelectedProduct" method="post" role="form">
+                    <div class="form-horizontal">
+                        <h4>Products</h4>
+                        <hr />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input asp-for="OneProduct.ProductID" type="hidden" value="@product.ProductID" />
+                        <input asp-for="OneProduct.Ingredients" type="hidden" value="@product.Ingredients" />
+
+                        <div class="form-group">
+                            <label asp-for="OneProductVM.CategoryName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.OneProductVM.CategoryName, new SelectList(categories), new { @class = "form-control" })
+                                <span asp-validation-for="OneProduct.CategoryNumber" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OneProduct.Description" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneProduct.Description" value="@product.Description" class="form-control" minlenght="1" required style="height:150px; width:100%"/>
+                                <span asp-validation-for="OneProduct.Description" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OneProduct.ProductName" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneProduct.ProductName" class="form-control" value="@product.ProductName" minlenght="1" required />
+                                <span asp-validation-for="OneProduct.ProductName" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="OneProduct.UnitPrice" class="col-md-3 control-label"></label>
+                            <div class="col-md-8">
+                                <input asp-for="OneProduct.UnitPrice" class="form-control" value="@product.UnitPrice" minlenght="1" required />
+                                <span asp-validation-for="OneProduct.UnitPrice" class="text-danger" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    $("#EditCreateForm").validate();
+                </script>
+            </div>
+            <div class="modal-footer">
+                <a asp-action="Index" asp-route-id="" asp-route-showModal="" class="btn btn-danger">Avbryt<span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

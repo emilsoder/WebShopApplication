@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebShopApp.Models
+@using WebShopApp.Repositories
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ICustomerRepository customerRepository
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Mina sidor</a>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logga ut</button>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-area="" asp-controller="Account" asp-action="Register">Registrera</a></li>
+        <li><a asp-area="" asp-controller="Account" asp-action="Login">Logga in</a></li>
+    </ul>
+}

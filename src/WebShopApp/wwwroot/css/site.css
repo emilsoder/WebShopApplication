@@ -1,0 +1,139 @@
+﻿html {
+    position: relative;
+    min-height: 100%;
+}
+
+footer {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: lightgray;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: 0 0 100px; /* bottom = footer height */
+}
+
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+input,
+select,
+textarea {
+    max-width: 400px;
+}
+
+.btn-bracketed::before {
+    display: inline-block;
+    content: "[";
+    padding-right: 0.5em;
+}
+
+.btn-bracketed::after {
+    display: inline-block;
+    content: "]";
+    padding-left: 0.5em;
+}
+
+.panel {
+    border: 1px solid gray;
+}
+
+.productImage {
+    margin-bottom: 10px;
+}
+
+.label.label-success {
+    font-size: 18px;
+    display: inline-grid;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.modal-header, .modalh4, .close {
+    background-color: #5cb85c;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.removeItemModal .modal-header.removeItemModal, .close.removeItemModal{
+    background-color: #b07305;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #5cb85c;
+}
+
+.goToCart {
+    margin-left: 10px;
+    height: 32px;
+    border-radius: 3px;
+    margin-top: 11px;
+    margin-right: 15px;
+}
+
+.shoppingCartPanel {
+    width: 100%;
+    height: 55px;
+    border: 0;
+    background-color: lightgray;
+    margin-bottom: 5px;
+    border-radius: 0;
+}
+
+.cartItemsDropDown {
+    margin-top: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.dropdown-menu {
+    border-radius: 0px;
+    padding: 3px 3px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+    margin-top: 40px;
+}
+
+.smallTR {
+    width: 50px;
+    min-width: 50px;
+}
+
+.largeTR {
+    width: auto;
+    max-width: 300px;
+    min-width: 150px;
+}
+
+.footerTable {
+    margin-bottom: 5px;
+}
+
+.manageHeader {
+    margin-top: -50px;
+    margin-bottom: 40px;
+}
