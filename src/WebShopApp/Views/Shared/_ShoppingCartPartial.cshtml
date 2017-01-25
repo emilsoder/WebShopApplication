@@ -1,15 +1,46 @@
 ﻿@using WebShopApp.Services
 @inject ShoppingCartDetailsService shoppingCartDetails
+<style>
+    .circle {
+        border-radius: 100%;
+        border: 0 solid black;
+    }
+
+    .glyphicon.glyphicon-edit {
+        font-size: 10px;
+    }
+
+    .specialTable {
+        width: 100% !important;
+        margin-bottom: 3px !important;
+        min-width: 300px !important;
+        border: 1px solid lightgray;
+    }
+
+    .submit-with-icon {
+        background: transparent;
+        border: 0px;
+        padding: 0;
+        outline: 0;
+    }
+
+    .circle:active {
+        content: '';
+        background-color: rgb(235, 235, 235);
+        border-color: rgb(173, 173, 173);
+    }
+</style>
+
 
 <div class="panel panel-default shoppingCartPanel">
     <div class="container" style="padding-right: 0px">
         @if (!User.Identity.IsAuthenticated)
         {
-            <div class="btn btn-primary pull-right goToCart" id="NOTLOGGEDIN">Beställ</div>
+            <div class="btn btn-primary pull-right goToCart w3-hover-shadow" id="NOTLOGGEDIN">Beställ</div>
         }
         @if (User.Identity.IsAuthenticated)
         {
-            <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-primary pull-right goToCart">Beställ</a>
+            <a asp-controller="ShoppingCart" asp-action="Index" class="btn btn-primary pull-right goToCart w3-hover-shadow">Beställ</a>
         }
         <div class="dropdown pull-right cartItemsDropDown">
             @if (User.Identity.IsAuthenticated)
@@ -17,37 +48,42 @@
                 decimal? totalPrice = shoppingCartDetails.currentShoppingCart(User.Identity.Name).Sum(p => p.UnitPrice);
                 totalPrice = (User.IsInRole("PremiumUser")) ? (80m / 100m) * totalPrice : totalPrice;
 
-                <div class="dropdown-toggle btn btn-default" data-toggle="dropdown" href="#">
+                <div class="dropdown-toggle btn btn-default w3-hover-shadow" data-toggle="dropdown" href="#" style="border-radius:0px">
                     Kundvagn(@shoppingCartDetails.GetCount(User.Identity.Name))
                     <span class="caret"></span>
                 </div>
-                <ul class="dropdown-menu" style="width:auto; padding-bottom:0">
+                <ul class="dropdown-menu" style="min-width:230px; padding-bottom:0; margin-top:-1px">
                     <content>
-                        <table class="table">
+                        <table class="table table-condensed table-responsive table-striped specialTable">
                             <tbody>
                                 @foreach (var item in shoppingCartDetails.currentShoppingCart(User.Identity.Name))
                                 {
+                                    decimal? unitPrice = (User.IsInRole("PremiumUser")) ? (80m / 100m) * item.UnitPrice : item.UnitPrice;
+
                                     <tr>
-                                        <td class="largeTR">
+                                        <td>
                                             @item.ProductName
                                         </td>
-                                        <td class="smallTR">
-                                            @item.UnitPrice kr
+                                        <td>
+                                            @unitPrice kr
                                         </td>
-                                        <td class="smallTR">
-                                            <form asp-action="Delete" asp-controller="Products" asp-route-id="@item.ID" style="margin-left:15px">
-                                                <button class="close" type="submit" style="cursor:pointer">&times;</button>
+                                        <td>
+                                            <form asp-action="Delete" asp-controller="Products" asp-route-id="@item.ID">
+                                                <div class="circle pull-right">
+                                                    <button type="submit" class="submit-with-icon pull-right">
+                                                        <span class="glyphicon glyphicon-remove pull-right"></span>
+                                                    </button>
+                                                </div>
                                             </form>
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
-                        <table class="table w3-teal footerTable">
+                        <table class="table table-responsive table-condensed w3-teal footerTable">
                             <tr>
-                                <td></td>
-                                <td><b>Summa:</b></td>
-                                <td><b>@totalPrice kr</b></td>
+                                <td class="text-right"><b>Summa:</b></td>
+                                <td class="text-center"><b>@totalPrice kr</b></td>
                             </tr>
                         </table>
                     </content>
@@ -55,8 +91,12 @@
             }
             @if (!User.Identity.IsAuthenticated)
             {
-                <a class="dropdown-toggle btn btn-default" data-toggle="dropdown" href="#">Kundvagn(0)<span class="caret"></span></a>
+                <a class="dropdown-toggle btn btn-default w3-hover-shadow" data-toggle="dropdown" href="#">Kundvagn(0)<span class="caret"></span></a>
             }
         </div>
     </div>
 </div>
+
+@*<a class="glyphicon glyphicon-remove" type="submit">
+    <span class="glyphicon glyphicon-remove"></span>
+    </a>*@

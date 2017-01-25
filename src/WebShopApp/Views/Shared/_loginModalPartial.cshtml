@@ -5,20 +5,17 @@
 
 <div class="modal fade" id="LoginModal" role="dialog">
     <div class="modal-dialog">
-
-
         <div class="modal-content">
             <div class="modal-header" style="padding:35px 50px;">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <div class="modalh4">
                     <span class="glyphicon glyphicon-shopping-cart glyphicon-lock">
-                    </span> Login
+                    </span> Logga in
                 </div>
             </div>
             <div class="modal-body" style="padding:40px 50px;">
                 <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                     <div asp-validation-summary="All" class="text-danger"></div>
-
                     <div class="form-group">
                         <label for="usrname">
                             <span class="glyphicon glyphicon-user"></span> Email
@@ -26,7 +23,6 @@
                         <input asp-for="Email" class="form-control" id="username" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-
                     <div class="form-group">
                         <label for="psw">
                             <span class="glyphicon glyphicon-eye-open"></span> Lösenord
@@ -54,7 +50,7 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
-                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                    <span class="glyphicon glyphicon-remove"></span> Avbryt
                 </button>
                 <p><a asp-action="Register" asp-controller="Account" asp-route-returnurl="@ViewData["ReturnUrl"]">Registrera dig!</a></p>
                 <p><a asp-action="ForgotPassword" asp-controller="Account" class="pull-right">Glömt ditt lösenord?</a></p>

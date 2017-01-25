@@ -12,7 +12,7 @@ namespace WebShopApp.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        #region Properties
+        #region props
         public static string OrderSent = null;
         public string breakline = "\n--------------------------------------\n";
         #endregion

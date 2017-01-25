@@ -10,18 +10,18 @@ namespace WebShopApp.Models.ViewModels.ManageViewModels
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "Nuvarande lösenord")]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Lösenordet måste vara minst fyra tecken långt.", MinimumLength = 4)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "Nytt lösenord")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Display(Name = "Bekräfta nytt lösenord")]
+        [Compare("NewPassword", ErrorMessage = "Det nya lösenordet matchar inte med ovanstående.")]
         public string ConfirmPassword { get; set; }
     }
 }

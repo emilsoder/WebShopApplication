@@ -8,24 +8,12 @@ using WebShopApp.Models.ViewModels;
 
 namespace WebShopApp.Controllers
 {
-    public class HomeController : Controller
+    public class ContactController : Controller
     {
         private readonly IEmailSender _emailSender;
-        public HomeController(IEmailSender emailSender)
+        public ContactController(IEmailSender emailSender)
         {
             _emailSender = emailSender;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
         }
 
         public IActionResult Contact(string IsMessageSent)
@@ -37,7 +25,7 @@ namespace WebShopApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Index(EmailFormViewModel model)
+        public async Task<ActionResult> Contact(EmailFormViewModel model)
         {
             if (ModelState.IsValid)
             {

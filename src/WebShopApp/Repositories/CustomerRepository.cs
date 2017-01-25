@@ -93,9 +93,5 @@ namespace WebShopApp.Repositories
             var _user = await GetCustomerByID(GetCustomerID(user));
             return _user.Role;
         } 
-        public Task<string> GetUsersFirstName()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

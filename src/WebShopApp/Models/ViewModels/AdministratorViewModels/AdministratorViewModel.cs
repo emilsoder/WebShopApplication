@@ -31,13 +31,13 @@ namespace WebShopApp.Models.AdministratorViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "Detta fält får inte vara tomt!")]
         [Display(Name = "Pris/st")]
         [DataType(DataType.Currency)]
+
         public decimal UnitPrice { get; set; }
         public int? CategoryNumber { get; set; }
     }
 
     public class ProductsViewModel
     {
-
         [Required(AllowEmptyStrings = false, ErrorMessage = "Detta fält får inte lämnas tomt")]
         public string CategoryName { get; set; }
     }

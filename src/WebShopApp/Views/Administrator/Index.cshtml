@@ -10,7 +10,6 @@
         Administratör
     </h2>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="col-xs-8">
@@ -105,15 +104,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-
                         <th>Kund</th>
-
                         <th>Leverans</th>
                         <th>Datum</th>
-
                         <th>Antal</th>
                         <th>Rabatt</th>
-
                         <th>Netto</th>
                         <th>Summa</th>
                     </tr>
@@ -133,7 +128,6 @@
                             <td>@disc %</td>
                             <td>@item.NetPrice kr</td>
                             <td>@item.TotalPrice kr</td>
-
                         </tr>
                     }
                 </tbody>
@@ -142,28 +136,22 @@
     </div>
 </div>
 
-
 @if (ViewBag.showModal != null)
 {
     @if (ViewBag.showModal.ToString() == "product")
     {
         @Html.Partial("../Administrator/PartialViews/_EditProductPartial")
     }
-
     @if (ViewBag.showModal.ToString() == "customer")
     {
         @Html.Partial("../Administrator/PartialViews/_EditCustomerPartial")
     }
-
     // Remove confirmation modals
-
     @if (ViewBag.showModal.ToString() == "DeleteProduct")
     {
         @Html.Partial("../Administrator/PartialViews/_DeleteProductPartial")
     }
-
     // Create product
-
     @if (ViewBag.showModal.ToString() == "CreateProduct")
     {
         @Html.Partial("../Administrator/PartialViews/_CreateProductPartial")

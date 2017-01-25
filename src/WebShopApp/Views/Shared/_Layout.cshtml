@@ -40,7 +40,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
                     <li><a asp-controller="Products" asp-action="Index">Beställ här!</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a></li>
                 </ul>
@@ -49,7 +48,6 @@
         </div>
     </div>
     @await Html.PartialAsync("_ShoppingCartPartial")
-
     <div class="container body-content">
         @RenderBody()
         @Html.Partial("_loginModalPartial", new WebShopApp.Models.AccountViewModels.LoginViewModel())
@@ -57,7 +55,6 @@
             <p style="padding-top:15px">&copy; 2017 - Tomaso Pizzeria</p>
         </footer>
     </div>
-
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -74,7 +71,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("scripts", required: false)
 </body>
 </html>

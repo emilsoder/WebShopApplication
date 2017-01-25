@@ -16,9 +16,8 @@ footer {
 body {
     padding-top: 50px;
     padding-bottom: 50px;
-    margin: 0 0 100px; /* bottom = footer height */
+    margin: 0 0 100px;
 }
-
 
 .body-content {
     padding-left: 15px;
@@ -65,12 +64,12 @@ textarea {
     font-size: 30px;
 }
 
-.removeItemModal .modal-header.removeItemModal, .close.removeItemModal{
-    background-color: #b07305;
-    color: white !important;
-    text-align: center;
-    font-size: 30px;
-}
+    .removeItemModal .modal-header.removeItemModal, .close.removeItemModal {
+        background-color: #b07305;
+        color: white !important;
+        text-align: center;
+        font-size: 30px;
+    }
 
 .modal-footer {
     background-color: #f9f9f9;
@@ -85,7 +84,7 @@ textarea {
 .goToCart {
     margin-left: 10px;
     height: 32px;
-    border-radius: 3px;
+    border-radius: 0px;
     margin-top: 11px;
     margin-right: 15px;
 }
@@ -130,10 +129,21 @@ textarea {
 }
 
 .footerTable {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .manageHeader {
     margin-top: -50px;
     margin-bottom: 40px;
+}
+
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555;
+    cursor: default;
+    background-color: #a8abac;
+    border: 1px solid #727272;
+    border-bottom-color: transparent;
+    font-weight: bold;
+    color: black;
 }

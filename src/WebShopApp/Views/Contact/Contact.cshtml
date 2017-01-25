@@ -16,15 +16,15 @@
         width: 100%;
     }
 </style>
-<div class="row">
 
+<div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="text-center">Skicka ett meddelande till oss</h3>
             </div>
             <div class="panel-b">
-                <form asp-action="Index" method="post" role="form">
+                <form asp-action="Contact" method="post" role="form">
                     <div class="form-horizontal">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
@@ -34,7 +34,6 @@
                                 <span asp-validation-for="FromName" class="text-danger" />
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="col-md-3 control-label">Din email</label>
                             <div class="col-md-9">
@@ -42,7 +41,6 @@
                                 <span asp-validation-for="FromEmail" class="text-danger" />
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="col-md-3 control-label">Ämne</label>
                             <div class="col-md-9">
@@ -50,7 +48,6 @@
                                 <span asp-validation-for="Subject" class="text-danger" />
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="col-md-3 control-label">Meddelande</label>
                             <div class="col-md-9">
@@ -58,7 +55,6 @@
                                 <span asp-validation-for="Message" class="text-danger" />
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-9">
                                 <input type="submit" class="btn btn-default" value="Skicka" />
@@ -70,7 +66,6 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -85,7 +80,6 @@
         </div>
     </div>
 </div>
-
 
 @if (ViewData["IsMessageSent"] != null)
 {

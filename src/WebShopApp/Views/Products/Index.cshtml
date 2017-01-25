@@ -12,7 +12,7 @@
 
 <div class="tab-content">
     <div id="pizzaTab" class="tab-pane fade in active">
-        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+        <div class="container container-fluid" style="background-color: #a8abac;padding-top: 20px;border: 1px solid #727272;">
             <div class="row">
                 @foreach (var item in Model.Where(x => x.CategoryNumber == 1))
                 {
@@ -61,9 +61,8 @@
             </div>
         </div>
     </div>
-
     <div id="kebabTab" class="tab-pane fade">
-        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+        <div class="container container-fluid" style="background-color: #a8abac;padding-top: 20px;border: 1px solid #727272;">
             <div class="row">
                 @foreach (var item in Model.Where(x => x.CategoryNumber == 2))
                 {
@@ -112,9 +111,8 @@
             </div>
         </div>
     </div>
-
     <div id="salladTab" class="tab-pane fade">
-        <div class="container container-fluid" style="background-color: lightgray;padding-top: 20px;">
+        <div class="container container-fluid" style="background-color: #a8abac;padding-top: 20px;border: 1px solid #727272;">
             <div class="row">
                 @foreach (var item in Model.Where(x => x.CategoryNumber == 3))
                 {
@@ -164,7 +162,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
         function pizzaClick() {

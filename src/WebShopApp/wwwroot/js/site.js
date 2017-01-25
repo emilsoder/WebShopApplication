@@ -44,7 +44,7 @@ function tabMenuPositions() {
     }
     else if ($(window).width() > 479) {
         $('.nav-tabs').css({
-            'margin-top': '-49px'
+            'margin-top': '-46px'
         });
     };
 };

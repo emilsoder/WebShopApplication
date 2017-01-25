@@ -13,8 +13,6 @@ namespace WebShopApp.Repositories
         void InsertCustomer(Customers customer);
         void DeleteCustomer(int customerID);
         void UpdateCustomer(Customers customer);
-
-        Task<string> GetUsersFirstName();
         int GetCustomerID(string userName);
         void EditCustomerDetails(Customers customer);
         bool CustomerExists(int customerId);
