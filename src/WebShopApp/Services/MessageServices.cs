@@ -32,7 +32,7 @@ namespace WebShopApp.Services
                 client.ServerCertificateValidationCallback = (s, c, h, e) => true;
                 await client.ConnectAsync("smtp01.binero.se", 587, false);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                await client.AuthenticateAsync("kontakt@emilsodergren.se", "Emil1100");
+                await client.AuthenticateAsync("INSERT_EMAIL_HERE", "PASSWORD");
                 await client.SendAsync(mimeMessage);
                 await client.DisconnectAsync(true);
             }
